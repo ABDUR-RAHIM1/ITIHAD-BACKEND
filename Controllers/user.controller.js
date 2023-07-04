@@ -50,6 +50,20 @@ const loginUser = async(req, res)=>{
      }
 }
 
+
+// update user 
+const updateUser = async (req, res)=>{
+    try {
+        const updateUser = await User.findByIdAndUpdate(req.params.id ,{
+            $set : req.body
+       }, {new :true})
+       res.status(200).json({message :"User Update Successfull", updateUser})
+    } catch (error) {
+        res.status(500).json({message :"Internal Server Error", error})
+    }
+}
+
+
 /// delete user 
 const deleteUser = async (req, res) => {
     try {
@@ -64,4 +78,4 @@ const deleteUser = async (req, res) => {
     }
   };
   
-module.exports = {getuser, createUser ,deleteUser,loginUser}
+module.exports = {getuser, createUser ,updateUser,deleteUser,loginUser}
