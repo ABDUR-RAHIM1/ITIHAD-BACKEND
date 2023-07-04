@@ -28,6 +28,18 @@ const addBlogs =  async(req , res)=>{
     }
 }
 
+const updateBlog = async(req, res)=>{
+     try {
+        const updateBlog = await Blog.findByIdAndUpdate(req.params.id, {
+            $set : req.body
+       }, {new :true})
+       res.status(200).json({message : "Blog Updated Successfull", updateBlog})
+     } catch (error) {
+          res.status(500).json({message :"Internal server Error", error})
+          console.log(error)
+     }
+}
+
 const deleteBlogs =  async(req , res)=>{
     const findBlog = await Blog.findById(req.params.id)
     console.log(findBlog)
@@ -44,4 +56,4 @@ const deleteBlogs =  async(req , res)=>{
 }
 
 
-module.exports = {getBlogs , addBlogs , deleteBlogs}
+module.exports = {getBlogs , addBlogs ,updateBlog, deleteBlogs}
