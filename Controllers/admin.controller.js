@@ -55,6 +55,18 @@ const loginAdmin = async (req, res) => {
   };
   
 
+const updateAdmin = async(req, res)=>{
+   try {
+    const updateAdmin = await Admin.findByIdAndUpdate(req.params.id, {
+      $set : req.body
+    }, {new:true})
+    res.status(200).json({message :"Update Successfull", updateAdmin})
+   } catch (error) {
+     res.status(500).json({message :"Internal Serer Error", error})
+   }
+}
+
+
 const deleteAdmin = async (req, res)=>{
     const deleteAdmin = await Admin.findByIdAndDelete(req.params.id)
     try {
@@ -66,4 +78,4 @@ const deleteAdmin = async (req, res)=>{
 
 
 
-module.exports = {getAdmin, createModaretor , loginAdmin , deleteAdmin}
+module.exports = {getAdmin, createModaretor , loginAdmin , updateAdmin, deleteAdmin}
